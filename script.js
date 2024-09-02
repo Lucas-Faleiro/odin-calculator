@@ -7,6 +7,7 @@ const allOperands = document.querySelectorAll(".operands");
 const resultText = document.querySelector(".result");
 const calculator = document.querySelector("#calculator");
 const equalBtn = document.querySelector("#equal");
+const clearBtn = document.querySelector("#clear");
 const operationCont = document.createElement("p");
 
 const add = (numA, numB) => +numA + +numB;
@@ -44,8 +45,23 @@ const saveOperation = (e) => {
 
 const getResult = () => {
   secondNum = resultText.innerText;
-  resultText.innerText = operate(operator, firstNum, secondNum);
-  operationCont.innerText = `${secondNum} ${operator} ${firstNum} =`;
+  if (operator && firstNum && secondNum) {
+    resultText.innerText = operate(operator, firstNum, secondNum);
+    operationCont.innerText = `${secondNum} ${operator} ${firstNum} =`;
+  }
+  if (!operator || secondNum) {
+    operationCont.innerText = `${resultText.innerText} =`;
+    operationCont.setAttribute("class", "result");
+    calculator.insertBefore(operationCont, resultText);
+  }
+};
+
+const clear = () => {
+  firstNum = 0;
+  secondNum = 0;
+  operator = "";
+  resultText.innerText = 0;
+  operationCont.innerText = "";
 };
 
 for (let i = 0; i < allDigits.length; i++) {
@@ -57,3 +73,4 @@ for (let i = 0; i < allOperands.length; i++) {
 }
 
 equalBtn.addEventListener("click", getResult);
+clearBtn.addEventListener("click", clear);
