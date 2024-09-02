@@ -36,9 +36,17 @@ const displayDigit = (e) => {
 };
 
 const saveOperation = (e) => {
-  operator = e.target.innerText;
-  firstNum = resultText.innerText;
-  createOperationPara(firstNum + operator);
+  if (operator) {
+    secondNum = resultText.innerText;
+    resultText.innerText = operate(operator, firstNum, secondNum);
+    operator = e.target.innerText;
+    operationCont.innerText = `${resultText.innerText} ${operator}`;
+  }
+  if (!operator) {
+    operator = e.target.innerText;
+    firstNum = resultText.innerText;
+    createOperationPara(firstNum + operator);
+  }
 };
 
 const getResult = () => {
