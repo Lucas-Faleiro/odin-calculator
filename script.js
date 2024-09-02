@@ -38,22 +38,25 @@ const displayDigit = (e) => {
 const saveOperation = (e) => {
   operator = e.target.innerText;
   firstNum = resultText.innerText;
-  operationCont.innerText = firstNum + operator;
-  operationCont.setAttribute("class", "result");
-  calculator.insertBefore(operationCont, resultText);
+  createOperationPara(firstNum + operator);
 };
 
 const getResult = () => {
+  if (!firstNum) firstNum = resultText.innerText;
   secondNum = resultText.innerText;
   if (operator && firstNum && secondNum) {
     resultText.innerText = operate(operator, firstNum, secondNum);
     operationCont.innerText = `${secondNum} ${operator} ${firstNum} =`;
   }
-  if (!operator || secondNum) {
-    operationCont.innerText = `${resultText.innerText} =`;
-    operationCont.setAttribute("class", "result");
-    calculator.insertBefore(operationCont, resultText);
+  if (!operator || !secondNum) {
+    createOperationPara(`${resultText.innerText} =`);
   }
+};
+
+const createOperationPara = (sentence) => {
+  operationCont.innerText = sentence;
+  operationCont.setAttribute("class", "result");
+  calculator.insertBefore(operationCont, resultText);
 };
 
 const clear = () => {
