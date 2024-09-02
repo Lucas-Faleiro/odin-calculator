@@ -3,7 +3,7 @@
   padding: 0;
 }
 
-.calculator {
+#calculator {
   display: flex;
   flex-direction: column;
   padding: 30px;
@@ -25,7 +25,7 @@
   margin-left: 76px;
 }
 
-#result {
+.result {
   align-self: flex-end;
 }
 

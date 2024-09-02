@@ -3,7 +3,9 @@ let secondNum = 0;
 let operator = "";
 let displayValue = 0;
 const allDigits = document.querySelectorAll(".digit");
-const resultText = document.querySelector("#result");
+const allOperands = document.querySelectorAll(".operands");
+const resultText = document.querySelector(".result");
+const calculator = document.querySelector("#calculator");
 
 const add = (numA, numB) => numA + numB;
 const sub = (numA, numB) => numA - numB;
@@ -29,6 +31,19 @@ const displayDigit = (e) => {
   resultText.innerText += displayValue;
 };
 
+const saveOperation = (e) => {
+  operator = e.target.innerText;
+  firstNum = resultText.innerText;
+  const operationCont = document.createElement("p");
+  operationCont.innerText = firstNum + operator;
+  operationCont.setAttribute("class", "result");
+  calculator.insertBefore(operationCont, resultText);
+};
+
 for (let i = 0; i < allDigits.length; i++) {
   allDigits[i].addEventListener("click", displayDigit);
+}
+
+for (let i = 0; i < allOperands.length; i++) {
+  allOperands[i].addEventListener("click", saveOperation);
 }
