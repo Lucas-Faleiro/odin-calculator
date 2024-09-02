@@ -6,11 +6,13 @@ const allDigits = document.querySelectorAll(".digit");
 const allOperands = document.querySelectorAll(".operands");
 const resultText = document.querySelector(".result");
 const calculator = document.querySelector("#calculator");
+const equalBtn = document.querySelector("#equal");
+const operationCont = document.createElement("p");
 
-const add = (numA, numB) => numA + numB;
-const sub = (numA, numB) => numA - numB;
-const mult = (numA, numB) => numA * numB;
-const divide = (numA, numB) => numA / numB;
+const add = (numA, numB) => +numA + +numB;
+const sub = (numA, numB) => +numA - +numB;
+const mult = (numA, numB) => +numA * +numB;
+const divide = (numA, numB) => +numA / +numB;
 
 const operate = (operation, numA, numB) => {
   switch (operation) {
@@ -28,16 +30,22 @@ const operate = (operation, numA, numB) => {
 const displayDigit = (e) => {
   displayValue = e.target.innerText;
   if (resultText.innerText === "0") resultText.innerText = "";
+  if (resultText.innerText === firstNum) resultText.innerText = "";
   resultText.innerText += displayValue;
 };
 
 const saveOperation = (e) => {
   operator = e.target.innerText;
   firstNum = resultText.innerText;
-  const operationCont = document.createElement("p");
   operationCont.innerText = firstNum + operator;
   operationCont.setAttribute("class", "result");
   calculator.insertBefore(operationCont, resultText);
+};
+
+const getResult = () => {
+  secondNum = resultText.innerText;
+  resultText.innerText = operate(operator, firstNum, secondNum);
+  operationCont.innerText = `${secondNum} ${operator} ${firstNum} =`;
 };
 
 for (let i = 0; i < allDigits.length; i++) {
@@ -47,3 +55,5 @@ for (let i = 0; i < allDigits.length; i++) {
 for (let i = 0; i < allOperands.length; i++) {
   allOperands[i].addEventListener("click", saveOperation);
 }
+
+equalBtn.addEventListener("click", getResult);
