@@ -38,6 +38,11 @@ const displayDigit = (e) => {
 const saveOperation = (e) => {
   if (operator) {
     secondNum = resultText.innerText;
+    if (firstNum === resultText.innerText) {
+      operator = e.target.innerText;
+      operationCont.innerText = `${resultText.innerText} ${operator}`;
+      return;
+    }
     resultText.innerText = operate(operator, firstNum, secondNum);
     operator = e.target.innerText;
     operationCont.innerText = `${resultText.innerText} ${operator}`;
