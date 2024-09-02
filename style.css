@@ -3,9 +3,30 @@
   padding: 0;
 }
 
+.calculator {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  width: 400px;
+  gap: 12px;
+}
 .operators-container {
   display: flex;
   gap: 18px;
+  margin-left: 30px;
+}
+
+.digits-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 250px;
+  gap: 12px;
+  justify-content: center;
+  margin-left: 76px;
+}
+
+#result {
+  align-self: flex-end;
 }
 
 button {
