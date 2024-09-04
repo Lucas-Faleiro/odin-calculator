@@ -2,7 +2,6 @@ let firstNum = 0;
 let secondNum = 0;
 let operator = "";
 let displayValue = 0;
-let equalClicked = false;
 const allDigits = document.querySelectorAll(".digit");
 const allOperands = document.querySelectorAll(".operands");
 const resultText = document.querySelector(".result");
@@ -31,10 +30,6 @@ const operate = (operation, numA, numB) => {
 
 const displayDigit = (e) => {
   displayValue = e.target.innerText;
-  if (equalClicked === true) {
-    clear();
-    equalClicked = false;
-  }
   if (resultText.innerText === "0") resultText.innerText = "";
   if (resultText.innerText === firstNum) resultText.innerText = "";
   resultText.innerText += displayValue;
@@ -69,7 +64,6 @@ const getResult = () => {
   if (!operator || !secondNum) {
     createOperationPara(`${resultText.innerText} =`);
   }
-  equalClicked = true;
 };
 
 const createOperationPara = (sentence) => {
@@ -96,5 +90,3 @@ for (let i = 0; i < allOperands.length; i++) {
 
 equalBtn.addEventListener("click", getResult);
 clearBtn.addEventListener("click", clear);
-
-//tomorrow fix the way it cleans the number after selecting an operator, also fix the order it display the numbers in operation container
