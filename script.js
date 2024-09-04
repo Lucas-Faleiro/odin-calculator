@@ -1,7 +1,9 @@
 let firstNum = 0;
 let secondNum = 0;
 let operator = "";
+let result = 0;
 let displayValue = 0;
+let equalClicked = false;
 const allDigits = document.querySelectorAll(".digit");
 const allOperands = document.querySelectorAll(".operands");
 const resultText = document.querySelector(".result");
@@ -29,6 +31,11 @@ const operate = (operation, numA, numB) => {
 };
 
 const displayDigit = (e) => {
+  if (operator) equalClicked = false;
+  if (equalClicked === true) {
+    clear();
+    equalClicked = false;
+  }
   displayValue = e.target.innerText;
   if (resultText.innerText === "0") resultText.innerText = "";
   if (resultText.innerText === firstNum) resultText.innerText = "";
@@ -58,12 +65,16 @@ const getResult = () => {
   if (!firstNum) firstNum = resultText.innerText;
   secondNum = resultText.innerText;
   if (operator && firstNum && secondNum) {
-    resultText.innerText = operate(operator, firstNum, secondNum);
+    result = operate(operator, firstNum, secondNum);
+    resultText.innerText = result;
     operationCont.innerText = `${secondNum} ${operator} ${firstNum} =`;
   }
   if (!operator || !secondNum) {
     createOperationPara(`${resultText.innerText} =`);
   }
+  firstNum = result;
+  operator = "";
+  equalClicked = true;
 };
 
 const createOperationPara = (sentence) => {
