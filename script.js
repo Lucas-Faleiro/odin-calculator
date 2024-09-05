@@ -4,6 +4,7 @@ let operator = "";
 let result = 0;
 let displayValue = 0;
 let equalClicked = false;
+let clearResult = false;
 const allDigits = document.querySelectorAll(".digit");
 const allOperands = document.querySelectorAll(".operands");
 const resultText = document.querySelector(".result");
@@ -31,15 +32,16 @@ const operate = (operation, numA, numB) => {
 };
 
 const displayDigit = (e) => {
-  if (operator) equalClicked = false;
   if (equalClicked === true) {
     clear();
     equalClicked = false;
   }
-  displayValue = e.target.innerText;
   if (resultText.innerText === "0") resultText.innerText = "";
-  if (resultText.innerText === firstNum) resultText.innerText = "";
-  resultText.innerText += displayValue;
+  if (clearResult) {
+    resultText.innerText = "";
+    clearResult = false;
+  }
+  resultText.innerText += e.target.innerText;
 };
 
 const saveOperation = (e) => {
@@ -50,14 +52,17 @@ const saveOperation = (e) => {
       operationCont.innerText = `${resultText.innerText} ${operator}`;
       return;
     }
-    resultText.innerText = operate(operator, firstNum, secondNum);
+    result = operate(operator, firstNum, secondNum);
+    resultText.innerText = result;
     operator = e.target.innerText;
     operationCont.innerText = `${resultText.innerText} ${operator}`;
+    clearResult = true;
   }
   if (!operator) {
     operator = e.target.innerText;
     firstNum = resultText.innerText;
     createOperationPara(firstNum + operator);
+    clearResult = true;
   }
 };
 
@@ -67,14 +72,14 @@ const getResult = () => {
   if (operator && firstNum && secondNum) {
     result = operate(operator, firstNum, secondNum);
     resultText.innerText = result;
-    operationCont.innerText = `${secondNum} ${operator} ${firstNum} =`;
+    operationCont.innerText = `${firstNum} ${operator} ${secondNum} =`;
+    equalClicked = true;
   }
   if (!operator || !secondNum) {
     createOperationPara(`${resultText.innerText} =`);
+    clearResult = true;
   }
   firstNum = result;
-  operator = "";
-  equalClicked = true;
 };
 
 const createOperationPara = (sentence) => {
