@@ -32,7 +32,7 @@ const operate = (operation, numA, numB) => {
 };
 
 const displayDigit = (e) => {
-  if (equalClicked === true) {
+  if (equalClicked) {
     clear();
     equalClicked = false;
   }
@@ -46,16 +46,19 @@ const displayDigit = (e) => {
 
 const saveOperation = (e) => {
   if (operator) {
-    secondNum = resultText.innerText;
-    if (firstNum === resultText.innerText) {
+    if (firstNum === resultText.innerText || equalClicked) {
       operator = e.target.innerText;
       operationCont.innerText = `${resultText.innerText} ${operator}`;
+      clearResult = true;
+      equalClicked = false;
       return;
     }
+    secondNum = resultText.innerText;
     result = operate(operator, firstNum, secondNum);
     resultText.innerText = result;
     operator = e.target.innerText;
     operationCont.innerText = `${resultText.innerText} ${operator}`;
+    firstNum = result;
     clearResult = true;
   }
   if (!operator) {
