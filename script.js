@@ -11,6 +11,8 @@ const resultText = document.querySelector(".result");
 const calculator = document.querySelector("#calculator");
 const equalBtn = document.querySelector("#equal");
 const clearBtn = document.querySelector("#clear");
+const dotBtn = document.querySelector("#dot");
+const backspaceBtn = document.querySelector("#backspace");
 const operationCont = document.createElement("p");
 
 const add = (numA, numB) => +numA + +numB;
@@ -44,6 +46,12 @@ const displayDigit = (e) => {
   resultText.innerText += e.target.innerText;
 };
 
+const displayDot = (e) => {
+  if (!resultText.innerText.includes(".")) {
+    resultText.innerText += e.target.innerText;
+  }
+};
+
 const saveOperation = (e) => {
   if (operator) {
     if (firstNum === resultText.innerText || equalClicked) {
@@ -54,6 +62,10 @@ const saveOperation = (e) => {
       return;
     }
     secondNum = resultText.innerText;
+    if (secondNum === "0" && operator === "/") {
+      giveZeroAlert();
+      return;
+    }
     result = operate(operator, firstNum, secondNum);
     resultText.innerText = result;
     operator = e.target.innerText;
@@ -72,6 +84,10 @@ const saveOperation = (e) => {
 const getResult = () => {
   if (!firstNum) firstNum = resultText.innerText;
   secondNum = resultText.innerText;
+  if (secondNum === "0" && operator === "/") {
+    giveZeroAlert();
+    return;
+  }
   if (operator && firstNum && secondNum) {
     result = operate(operator, firstNum, secondNum);
     resultText.innerText = result;
@@ -91,12 +107,26 @@ const createOperationPara = (sentence) => {
   calculator.insertBefore(operationCont, resultText);
 };
 
+const giveZeroAlert = () => {
+  alert("DON'T BREAK THE INTERNET, NEVER DIVIDE BY ZERO");
+  clear();
+};
+
 const clear = () => {
   firstNum = 0;
   secondNum = 0;
   operator = "";
   resultText.innerText = 0;
   operationCont.innerText = "";
+};
+
+const clearLastDigit = () => {
+  let num = resultText.innerText;
+  num = num.slice(0, num.length - 1);
+  resultText.innerText = num;
+  if (!resultText.innerText) {
+    resultText.innerText = "0";
+  }
 };
 
 for (let i = 0; i < allDigits.length; i++) {
@@ -107,5 +137,7 @@ for (let i = 0; i < allOperands.length; i++) {
   allOperands[i].addEventListener("click", saveOperation);
 }
 
+dotBtn.addEventListener("click", displayDot);
 equalBtn.addEventListener("click", getResult);
 clearBtn.addEventListener("click", clear);
+backspaceBtn.addEventListener("click", clearLastDigit);
