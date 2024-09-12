@@ -46,26 +46,6 @@ const displayDigit = (e) => {
   resultText.innerText += e.target.innerText;
 };
 
-const displayKeyboard = (e) => {
-  console.log(e.key);
-
-  allDigits.forEach((digit) => {
-    if (digit.innerText === e.key) {
-      digit.click();
-      return;
-    }
-  });
-  allOperands.forEach((operator) => {
-    if (operator.innerText === e.key) {
-      operator.click();
-      return;
-    }
-  });
-  if (e.key === "Enter") equalBtn.click();
-  if (e.key === "Backspace") backspaceBtn.click();
-  if (e.key === ".") dotBtn.click();
-};
-
 const displayDot = (e) => {
   if (!resultText.innerText.includes(".")) {
     resultText.innerText += e.target.innerText;
@@ -147,6 +127,29 @@ const clearLastDigit = () => {
   if (!resultText.innerText) {
     resultText.innerText = "0";
   }
+};
+
+const displayKeyboard = (e) => {
+  console.log(e.key);
+
+  allDigits.forEach((digit) => {
+    if (digit.innerText === e.key) {
+      digit.click();
+      return;
+    }
+  });
+  allOperands.forEach((operator) => {
+    if (operator.innerText === e.key) {
+      operator.click();
+      return;
+    }
+  });
+  if (e.key === "Enter") {
+    equalBtn.click();
+    document.activeElement.blur();
+  }
+  if (e.key === "Backspace") backspaceBtn.click();
+  if (e.key === ".") dotBtn.click();
 };
 
 for (let i = 0; i < allDigits.length; i++) {
