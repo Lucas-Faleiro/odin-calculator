@@ -8,6 +8,8 @@ let clearResult = false;
 const allDigits = document.querySelectorAll(".digit");
 const allOperands = document.querySelectorAll(".operands");
 const resultText = document.querySelector(".result");
+const resultContainer = document.querySelector("#result-container");
+const operationPreview = document.querySelector("#operation-preview");
 const calculator = document.querySelector("#calculator");
 const equalBtn = document.querySelector("#equal");
 const clearBtn = document.querySelector("#clear");
@@ -104,7 +106,7 @@ const getResult = () => {
 const createOperationPara = (sentence) => {
   operationCont.innerText = sentence;
   operationCont.setAttribute("class", "result");
-  calculator.insertBefore(operationCont, resultText);
+  operationPreview.appendChild(operationCont);
 };
 
 const giveZeroAlert = () => {
