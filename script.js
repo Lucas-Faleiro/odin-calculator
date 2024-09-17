@@ -7,7 +7,7 @@ let equalClicked = false;
 let clearResult = false;
 const allDigits = document.querySelectorAll(".digit");
 const allOperands = document.querySelectorAll(".operands");
-const resultText = document.querySelector(".result");
+const resultText = document.querySelector("#result");
 const resultContainer = document.querySelector("#result-container");
 const operationPreview = document.querySelector("#operation-preview");
 const calculator = document.querySelector("#calculator");
@@ -105,7 +105,7 @@ const getResult = () => {
 
 const createOperationPara = (sentence) => {
   operationCont.innerText = sentence;
-  operationCont.setAttribute("class", "result");
+  operationCont.setAttribute("id", "preview");
   operationPreview.appendChild(operationCont);
 };
 
