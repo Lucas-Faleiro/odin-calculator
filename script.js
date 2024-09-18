@@ -85,7 +85,7 @@ const saveOperation = (e) => {
 
 const getResult = () => {
   if (!firstNum) firstNum = resultText.innerText;
-  secondNum = resultText.innerText;
+  if (!secondNum) secondNum = resultText.innerText;
   if (secondNum === "0" && operator === "/") {
     giveZeroAlert();
     return;
