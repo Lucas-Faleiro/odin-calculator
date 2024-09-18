@@ -31,7 +31,7 @@ const operate = (operation, numA, numB) => {
     case "*":
       return mult(numA, numB);
     case "/":
-      return divide(numA, numB).toFixed(6);
+      return divide(numA, numB);
   }
 };
 
@@ -92,7 +92,7 @@ const getResult = () => {
   }
   if (operator && firstNum && secondNum) {
     result = operate(operator, firstNum, secondNum);
-    resultText.innerText = result;
+    resultText.innerText = result.toFixed(2);
     operationCont.innerText = `${firstNum} ${operator} ${secondNum} =`;
     equalClicked = true;
   }
@@ -133,25 +133,52 @@ const clearLastDigit = () => {
 
 const displayKeyboard = (e) => {
   console.log(e.key);
-
+  const backgroundColor = equalBtn.style.backgroundColor;
+  const transitionColor = "#181429";
   allDigits.forEach((digit) => {
     if (digit.innerText === e.key) {
       digit.click();
+      digit.style.backgroundColor = transitionColor;
+      setTimeout(() => {
+        digit.style.backgroundColor = backgroundColor;
+      }, "100");
       return;
     }
   });
   allOperands.forEach((operator) => {
     if (operator.innerText === e.key) {
       operator.click();
+      operator.style.backgroundColor = transitionColor;
+      setTimeout(() => {
+        operator.style.backgroundColor = backgroundColor;
+      }, "100");
       return;
     }
   });
   if (e.key === "Enter") {
     equalBtn.click();
+    equalBtn.style.backgroundColor = transitionColor;
+    setTimeout(() => {
+      equalBtn.style.backgroundColor = backgroundColor;
+    }, "100");
     document.activeElement.blur();
   }
-  if (e.key === "Backspace") backspaceBtn.click();
-  if (e.key === ".") dotBtn.click();
+  if (e.key === "Backspace") {
+    backspaceBtn.click();
+    backspaceBtn.style.backgroundColor = transitionColor;
+    setTimeout(() => {
+      backspaceBtn.style.backgroundColor = backgroundColor;
+    }, "100");
+  }
+  if (e.key === ".") {
+    if (!resultText.innerText.includes(".")) {
+      dotBtn.style.backgroundColor = transitionColor;
+      setTimeout(() => {
+        dotBtn.style.backgroundColor = backgroundColor;
+      }, "100");
+    }
+    dotBtn.click();
+  }
 };
 
 for (let i = 0; i < allDigits.length; i++) {

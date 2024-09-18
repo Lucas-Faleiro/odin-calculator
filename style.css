@@ -119,3 +119,8 @@ button {
   border: none;
   color: white;
 }
+
+button:active {
+  background-color: black;
+  transition: 0.1s;
+}
