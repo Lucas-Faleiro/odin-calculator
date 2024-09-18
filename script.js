@@ -1,5 +1,5 @@
 let firstNum = 0;
-let secondNum = 0;
+let secondNum = "";
 let operator = "";
 let result = 0;
 let displayValue = 0;
@@ -31,7 +31,7 @@ const operate = (operation, numA, numB) => {
     case "*":
       return mult(numA, numB);
     case "/":
-      return divide(numA, numB);
+      return divide(numA, numB).toFixed(6);
   }
 };
 
@@ -85,7 +85,7 @@ const saveOperation = (e) => {
 
 const getResult = () => {
   if (!firstNum) firstNum = resultText.innerText;
-  if (!secondNum) secondNum = resultText.innerText;
+  if (!equalClicked) secondNum = resultText.innerText;
   if (secondNum === "0" && operator === "/") {
     giveZeroAlert();
     return;
