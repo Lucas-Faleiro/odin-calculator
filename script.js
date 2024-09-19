@@ -92,7 +92,8 @@ const getResult = () => {
   }
   if (operator && firstNum && secondNum) {
     result = operate(operator, firstNum, secondNum);
-    resultText.innerText = result.toFixed(2);
+    resultText.innerText =
+      Math.round((result + Number.EPSILON) * 100000) / 100000;
     operationCont.innerText = `${firstNum} ${operator} ${secondNum} =`;
     equalClicked = true;
   }
@@ -132,7 +133,6 @@ const clearLastDigit = () => {
 };
 
 const displayKeyboard = (e) => {
-  console.log(e.key);
   const backgroundColor = equalBtn.style.backgroundColor;
   const transitionColor = "#181429";
   allDigits.forEach((digit) => {
